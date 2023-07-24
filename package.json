@@ -1,0 +1,37 @@
+{
+  "name": "odata-postgresql",
+  "version": "0.0.1",
+  "description": "Express callback to serve PostgreSQL database  as OData service",
+  "main": "index.mjs",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-plugin-node": "^11.1.0",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.1",
+    "prettier": "^2.8.8"
+  },
+  "config": {
+    "eslintFiles": "test/**/*.mjs lib/**/*.mjs ",
+    "prettierFiles": "test/**/*.mjs  lib/**/*.mjs  ./**/*.json .eslintrc"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "npm run validate",
+    "validate:test": "mocha  -R progress 'test/unit/**/*.mjs'",
+    "validate:eslint": "set -f; eslint $npm_package_config_eslintFiles",
+    "validate:prettier": "set -f; prettier --check $npm_package_config_prettierFiles",
+    "prettier": "set -f; prettier --write $npm_package_config_prettierFiles",
+    "validate": " npm run validate:eslint && npm run validate:prettier && npm run validate:test",
+    "watch": "nodemon -e mjs,xml -x \"npm run validate\""
+  },
+  "dependencies": {
+    "husky": "^8.0.3",
+    "mocha": "^10.2.0",
+    "simple-git": "^3.19.1"
+  }
+}

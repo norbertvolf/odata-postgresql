@@ -1,0 +1,68 @@
+{
+  "parserOptions": { "ecmaVersion": 2022 },
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "rules": {
+    "no-new": "error",
+    "no-console": "error",
+    "max-nested-callbacks": ["error", 5],
+    "curly": ["error", "all"],
+    "no-native-reassign": "error",
+    "yoda": ["error", "never"],
+    "no-warning-comments": [
+      "error",
+      {
+        "location": "start",
+        "terms": ["todo", "fixme", "xxx"]
+      }
+    ],
+    "strict": ["error", "global"],
+    "no-unused-expressions": "error",
+    "new-cap": ["error", { "capIsNew": false }],
+    "no-new-wrappers": "error",
+    "new-parens": "error",
+    "no-new-object": "error",
+    "complexity": ["error", 5],
+    "no-implied-eval": "error",
+    "no-array-constructor": "error",
+    "no-alert": "error",
+    "max-params": ["error", 5],
+    "no-proto": "error",
+    "no-use-before-define": "error",
+    "camelcase": "error",
+    "no-eq-null": "error",
+    "consistent-return": "error",
+    "no-caller": "error",
+    "max-depth": ["error", 3],
+    "max-statements-per-line": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "max-statements": ["error", 30],
+    "no-loop-func": "error",
+    "no-nested-ternary": "error",
+    "no-extend-native": "error",
+    "no-sequences": "error",
+    "no-eval": "error",
+    "no-self-compare": "error",
+    "no-shadow": "error",
+    "valid-jsdoc": [1, { "requireReturn": false }],
+    "no-extra-bind": "error",
+    "eqeqeq": "error",
+    "no-return-assign": "error",
+    "dot-notation": "error",
+    "no-new-func": "error",
+    "no-negated-in-lhs": "error",
+    "quotes": [1, "double", "avoid-escape"],
+    "radix": "error",
+    "wrap-iife": "error",
+    "consistent-this": ["error", "that"],
+    "no-lone-blocks": "error",
+    "no-throw-literal": "error"
+  }
+}
