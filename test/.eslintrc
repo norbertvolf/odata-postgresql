@@ -1,5 +1,13 @@
 {
-    "env": {
-        "mocha": true
-    }
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "node/no-unpublished-import": [
+      "error",
+      {
+        "allowModules": ["sinon"]
+      }
+    ]
+  }
 }

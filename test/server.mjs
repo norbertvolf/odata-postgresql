@@ -1,27 +1,25 @@
 /* eslint-disable node/no-unpublished-import */
+
 import express from "express";
 import pg from "pg";
-import oDataHandler from "../index.mjs";
+import ODataService from "../index.mjs";
 
 const Pool = pg.Pool;
-const pool = new Pool({
-  host: "/run/postgresql/.s.PGSQL.5432",
-  user: "norbert",
-  database: "ekome",
+
+const oDataService = new ODataService({
+  logger: console, //Logger object which contains debug, info, warn and error methods (optional, disabled by default)
+  pool: new Pool({
+    host: "/run/postgresql/",
+    database: "ekome",
+  }),
 });
 
-const oDataHandlerSettings = {
-  pool: pool,
-  schemas: ["core", "schema", "project"], //By defautl only public schema is published
-  schemaTimeout: 60000, //Timeout for metadata refreshing in miliseconds
-};
+oDataService.registerTable("public.*");
+oDataService.registerTable("project.activity", "project.activity");
 
 const app = express();
 
-app.use("/service", (req, res, next) =>
-  oDataHandler(oDataHandlerSettings, req, res, next)
-);
-
+app.use("/service", (...args) => oDataService.handler(...args));
 app.use("/", (req, res) => {
   res.send(req.path);
 });
