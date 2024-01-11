@@ -14,7 +14,7 @@ const oDataService = new ODataService({
   }),
 });
 
-oDataService.registerTable("public.*");
+oDataService.registerTable("core.*");
 oDataService.registerTable("project.activity", "project.activity");
 
 const app = express();

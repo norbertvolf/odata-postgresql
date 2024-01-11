@@ -1,6 +1,7 @@
 import metadata from "./lib/metadata.mjs";
+import get from "./lib/get.mjs";
 import * as root from "./lib/root.mjs";
-import { tableFullName } from "./lib/name.mjs";
+import { tableFullName, tableEntitySetName } from "./lib/name.mjs";
 import { normalizeSettings, checkSettings } from "./lib/settings.mjs";
 import logger from "./lib/logger.mjs";
 import {
@@ -10,11 +11,9 @@ import {
 } from "./lib/db.mjs";
 import micromatch from "micromatch";
 import _ from "lodash";
+import { REGISTRATION } from "./lib/const.mjs";
 
 export class ODataService {
-  static REGISTRATION = {
-    TABLE: "table",
-  };
   #settings = {};
   #checkSettingsPromise;
   #registrationPromises = [];
@@ -49,7 +48,7 @@ export class ODataService {
   isTableRegistered(tableDefinition) {
     return this.#registrations.some(
       (registration) =>
-        registration.type === ODataService.REGISTRATION.TABLE &&
+        registration.type === REGISTRATION.TABLE &&
         registration.name ===
           tableFullName(tableDefinition.schemaname, tableDefinition.tablename)
     );
@@ -77,9 +76,14 @@ export class ODataService {
             tableDefinition.schemaname,
             tableDefinition.tablename
           ),
-          type: ODataService.REGISTRATION.TABLE,
+          type: REGISTRATION.TABLE,
           properties: {
             table: tableDefinition,
+            entitySetName: tableEntitySetName(
+              this.settings,
+              tableDefinition.schemaname,
+              tableDefinition.tablename
+            ),
             columns: tableColumns,
             keys: tableKeys,
           },
@@ -134,7 +138,7 @@ export class ODataService {
 
     this.ready()
       .then(() => {
-        const foundHandlerModule = [root, metadata].find((handlerModule) =>
+        const foundHandlerModule = [root, metadata, get].find((handlerModule) =>
           handlerModule.isRequestFor(this.settings, this.registrations, ...args)
         );
         if (foundHandlerModule) {
